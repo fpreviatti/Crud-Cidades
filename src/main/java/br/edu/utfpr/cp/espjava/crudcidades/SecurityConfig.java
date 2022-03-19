@@ -32,22 +32,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("listar","admin")
+//                .antMatchers("/").hasAnyAuthority("listar","admin")
+                .antMatchers("/").authenticated()
                 .antMatchers("/criar").hasAuthority("admin")
                 .antMatchers("/excluir").hasAuthority("admin")
                 .antMatchers("/preparaAlterar").hasAuthority("admin")
                 .antMatchers("/alterar").hasAuthority("admin")
                 .antMatchers("/mostrar").authenticated()
-                .anyRequest().denyAll()
                 .and()
-                .formLogin()
-                .loginPage("/login.html").permitAll()
-                .and()
-                .logout().permitAll();
+                .oauth2Login().permitAll();
+ //               .formLogin()
+ //               .loginPage("/login.html").permitAll()
+ //               .and()
+ //               .logout().permitAll();
 
     }
 
-    @Bean
+    /*@Bean
     public PasswordEncoder cifrador(){
         return new BCryptPasswordEncoder();
     }
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @EventListener(ApplicationReadyEvent.class)
     public void printSenhas(){
         System.out.println(this.cifrador().encode("test123"));
-    }
+    }*/
 
     @EventListener(InteractiveAuthenticationSuccessEvent.class)
     public void printUsuarioAtual(InteractiveAuthenticationSuccessEvent event){
