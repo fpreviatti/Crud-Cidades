@@ -40,15 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/alterar").hasAuthority("admin")
                 .antMatchers("/mostrar").authenticated()
                 .and()
-                .oauth2Login().permitAll();
- //               .formLogin()
- //               .loginPage("/login.html").permitAll()
- //               .and()
- //               .logout().permitAll();
+//                .oauth2Login().permitAll()
+//                .and()
+                .formLogin()
+                .loginPage("/login.html").permitAll()
+                .and()
+                .logout().permitAll();
 
     }
 
-    /*@Bean
+    @Bean
     public PasswordEncoder cifrador(){
         return new BCryptPasswordEncoder();
     }
@@ -56,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @EventListener(ApplicationReadyEvent.class)
     public void printSenhas(){
         System.out.println(this.cifrador().encode("test123"));
-    }*/
+    }
 
     @EventListener(InteractiveAuthenticationSuccessEvent.class)
     public void printUsuarioAtual(InteractiveAuthenticationSuccessEvent event){
