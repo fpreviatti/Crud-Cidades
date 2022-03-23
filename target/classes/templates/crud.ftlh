@@ -106,6 +106,14 @@
             </tbody>
         </table>
     </div>
+
+    <div class="container-fluid">
+
+        <form action="/limpar" method="POST">
+            <button type="submit" class="btn btn-primary">Limpar lista de cidades</button>
+        </form>
+
+    </div>
 </body>
 
 </html>

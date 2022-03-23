@@ -66,7 +66,12 @@ public class CidadeController {
         }
 
         else{
-            repository.save(cidade.clonar());
+            var cidadeAtual = repository.findByNomeAndEstado(cidade.getNome(),cidade.getEstado());
+
+            if(!cidadeAtual.isPresent()){
+                repository.save(cidade.clonar());
+            }
+
         }
 
         return "redirect:/";
@@ -128,6 +133,12 @@ public class CidadeController {
     @ResponseBody
     public String mostraCookieAlterar(@CookieValue String listar){
         return "Último acesso ao método listar(): " +listar;
+    }
+
+    @PostMapping("/limpar")
+    public String limpar(){
+        repository.deleteAll();
+        return "redirect:/";
     }
 }
 
