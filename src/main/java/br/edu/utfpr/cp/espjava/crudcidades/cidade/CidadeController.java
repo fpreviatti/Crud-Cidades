@@ -43,6 +43,19 @@ public class CidadeController {
 
         return "/crud";
     }
+    
+    @GetMapping("/cidades")
+    public ResponseEntity<List<Cidade>> listarCidades(Model memoria, HttpSession sessao, HttpServletResponse response) {
+
+        List<Cidade> cidades = repository
+                .findAll()
+                .stream()
+                .map(cidade -> new Cidade(cidade.getNome(), cidade.getEstado()))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(cidades);
+
+    }
 
     @PostMapping("/criar")
     public String criar(@Valid Cidade cidade, BindingResult validacao, Model memoria, HttpServletResponse response) {
